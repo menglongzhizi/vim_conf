@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/mazhaomeng/project/searchapi.xin.com'
+let g:netrw_dirhist_2='/home/mazhaomeng/project/searchapi.xin.com/trunk'
+let g:netrw_dirhist_3='/home/mazhaomeng'
+let g:netrw_dirhist_4='/home/mazhaomeng/project'
+let g:netrw_dirhist_5='/home/mazhaomeng/project/searchapi.xin.com'
+let g:netrw_dirhist_6='/home/mazhaomeng/project/searchapi.xin.com/trunk'
+let g:netrw_dirhist_7='/home/mazhaomeng'

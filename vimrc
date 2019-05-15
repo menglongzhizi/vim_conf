@@ -78,6 +78,8 @@ let g:ycm_min_num_of_chars_for_completion=1
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" 直接出发自动补全
+let g:ycm_key_invoke_completion = '<C-Space>'
 
 Bundle 'taglist.vim'
 " 热键设置，我设置成Leader+t来呼出和关闭Taglist
@@ -101,9 +103,16 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联
 " 自动文档插件
 Plugin 'DoxygenToolkit.vim'
 " 自动生成文档注释、函数注释和行注释等
-let g:DoxygenToolkit_authorName="mazhaomeng@xin.cn"
-let s:licenseTag = "TODO:\<enter>"
-let s:licenseTag = s:licenseTag . "TODO:\<enter>"
+let g:DoxygenToolkit_briefTag_pre="@synopsis  "
+let g:DoxygenToolkit_paramTag_pre="@param "
+let g:DoxygenToolkit_returnTag="@returns   "
+let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
+let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
+let g:DoxygenToolkit_authorName="mazhaomeng@xin.com"
+let g:DoxygenToolkit_licenseTag="GPL 2.0"
+let g:DoxygenToolkit_authorName="mazhaomeng@xin.com"
+let s:licenseTag = "Copyright(C)\<enter>"
+let s:licenseTag = s:licenseTag . "For free\<enter>"
 let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
 let g:DoxygenToolkit_licenseTag = s:licenseTag
 let g:DoxygenToolkit_briefTag_funcName="yes"

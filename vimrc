@@ -1,10 +1,10 @@
 set nocompatible
 set backspace=2 " 设置backspace 插入模式下无法删除问题
-set number    " 显示行号
+set number  " 显示行号
 set foldenable    " 开始折叠
-set foldmethod=marker   " 设置为语法折叠,manual=>定义手工折叠，indent=>缩进表示折叠,expr=>表达式表示折叠,syntax=> 语法折叠,diff=>对没有更改的文件折叠,marker=>标志折叠
+set foldmethod=marker
 set foldcolumn=0  " 设置折叠区域的宽度
-set foldlevelstart=0   " 打开文件默认不折叠
+set foldlevelstart=0    " 打开文件默认不折叠
 " set foldclose=all     " 设置为自动关闭折叠
 " 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>

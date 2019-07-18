@@ -1,4 +1,5 @@
 set nocompatible
+set backspace=2 " 设置backspace 插入模式下无法删除问题
 set number    " 显示行号
 set foldenable    " 开始折叠
 set foldmethod=marker   " 设置为语法折叠,manual=>定义手工折叠，indent=>缩进表示折叠,expr=>表达式表示折叠,syntax=> 语法折叠,diff=>对没有更改的文件折叠,marker=>标志折叠
@@ -56,6 +57,25 @@ let NERDTreeShowBookmarks=1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'                                                        
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"                                                                     
+    \ }                                                                                     
+" let g:NERDTreeShowIgnoredStatus = 1
+
+
+
+
 Plugin 'vim-airline'
 set laststatus=2
 
@@ -65,7 +85,7 @@ Bundle 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 " 注释使用方法 <leader>cc 添加注释  <leader>cu 放开注释 <leader>c<space> 添加注释OR解开注释只能判断 <leader>cy 先复制，再注释(p可以进行粘贴)
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
 let g:ycm_confirm_extra_conf=0
 " 补全功能在注释中同样有效

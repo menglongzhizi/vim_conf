@@ -73,9 +73,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }                                                                                     
 " let g:NERDTreeShowIgnoredStatus = 1
 
-
-
-
 Plugin 'vim-airline'
 set laststatus=2
 
@@ -85,7 +82,15 @@ Bundle 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 " 注释使用方法 <leader>cc 添加注释  <leader>cu 放开注释 <leader>c<space> 添加注释OR解开注释只能判断 <leader>cy 先复制，再注释(p可以进行粘贴)
 
-" Plugin 'Valloric/YouCompleteMe'
+" go 主要插件
+"Plugin 'fatih/vim-go', { 'tag': '*'  }
+" go 中的代码追踪，输入 gd 就可以自动跳转
+"Plugin 'dgryski/vim-godef'"
+
+" 自动补全括号的插件，包括小括号，中括号，以及花括号
+Plugin 'jiangmiao/auto-pairs'
+
+Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
 let g:ycm_confirm_extra_conf=0
 " 补全功能在注释中同样有效
@@ -137,6 +142,30 @@ let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
 let g:DoxygenToolkit_licenseTag = s:licenseTag
 let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:doxygen_enhanced_color=1
+
+" 模糊文件搜索
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>f :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \ }
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+" ctrlp 的扩展插件，可实现模糊文本函数搜索
+Plugin 'tacahiroy/ctrlp-funky'
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_extensions = ['funky']
 
 call vundle#end()
 filetype plugin on

@@ -173,6 +173,21 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
 
+Plugin 'mileszs/ack.vim'
+let g:ackprg = 'ag --nogroup --nocolor --column'
+map <c-u> :Ack<space>
+
+"全文搜索
+Plugin 'dyng/ctrlsf.vim'
+
+let g:ctrlsf_open_left = 0 " 表示窗口在左边还是右边打开
+"但在OS X 则
+" let g:ctrlsf_position = 'right'
+nnoremap <Leader>ff :CtrlSF<Space>
+" let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_search_mode = 'async' " 开启异步搜索
+let g:ctrlsf_auto_preview = 1
+
 call vundle#end()
 filetype plugin on
 

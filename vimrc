@@ -92,7 +92,7 @@ Plugin 'jiangmiao/auto-pairs'
 
 Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
-let g:ycm_confirm_extra_conf=0
+let g:ycm_confirm_extra_conf=1
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
 " 开启tags补全引擎
@@ -104,7 +104,12 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " 直接出发自动补全
-let g:ycm_key_invoke_completion = '<C-Space>'
+let g:ycm_key_invoke_completion = '<C-z>'                                                   
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_semantic_triggers =  {
+    \ 'c,cpp,python,java,go,erlang,perl,php': ['re!\w{2}'],
+    \ 'cs,lua,javascript': ['re!\w{2}'],
+    \ }  
 
 Bundle 'taglist.vim'
 " 热键设置，我设置成Leader+t来呼出和关闭Taglist
@@ -123,8 +128,9 @@ let Tlist_Show_One_File = 1
 let Tlist_File_Fold_Auto_Close = 1
 " 让taglist窗口出现在Vim的右边
 let Tlist_Use_Right_Window = 1
-let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联 
-
+" let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联 
+let Tlist_Ctags_Cmd="/usr/local/Cellar/ctags/5.8_1/bin/ctags"
+   
 " 自动文档插件
 Plugin 'DoxygenToolkit.vim'
 " 自动生成文档注释、函数注释和行注释等

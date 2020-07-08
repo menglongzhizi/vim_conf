@@ -25,6 +25,12 @@ set textwidth=90    "设置每行的最大字符数，超过的话，将换行
 set colorcolumn=+2
 " 关闭未保存文件时进行提示
 set confirm
+" tab键就会显示为 ^I ，$ 显示在行尾。这样页就能看到哪里有空格了
+" set list
+
+highlight ExtraWhitespace ctermbg=red guibg=darkgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -58,7 +64,7 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 
-Plugin 'Xuyuanp/nerdtree-git-plugin'                                                        
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -69,8 +75,8 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Dirty"     : "✗",
     \ "Clean"     : "✔︎",
     \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"                                                                     
-    \ }                                                                                     
+    \ "Unknown"   : "?"
+    \ }
 " let g:NERDTreeShowIgnoredStatus = 1
 
 Plugin 'vim-airline'
@@ -104,12 +110,12 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " 直接出发自动补全
-let g:ycm_key_invoke_completion = '<C-z>'                                                   
+let g:ycm_key_invoke_completion = '<C-z>'
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 let g:ycm_semantic_triggers =  {
     \ 'c,cpp,python,java,go,erlang,perl,php': ['re!\w{2}'],
     \ 'cs,lua,javascript': ['re!\w{2}'],
-    \ }  
+    \ }
 
 Bundle 'taglist.vim'
 " 热键设置，我设置成Leader+t来呼出和关闭Taglist
@@ -128,9 +134,9 @@ let Tlist_Show_One_File = 1
 let Tlist_File_Fold_Auto_Close = 1
 " 让taglist窗口出现在Vim的右边
 let Tlist_Use_Right_Window = 1
-" let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联 
+" let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联
 let Tlist_Ctags_Cmd="/usr/local/Cellar/ctags/5.8_1/bin/ctags"
-   
+
 " 自动文档插件
 Plugin 'DoxygenToolkit.vim'
 " 自动生成文档注释、函数注释和行注释等
@@ -138,10 +144,10 @@ let g:DoxygenToolkit_briefTag_pre="@synopsis  "
 let g:DoxygenToolkit_paramTag_pre="@param "
 let g:DoxygenToolkit_returnTag="@returns   "
 let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
-let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
-let g:DoxygenToolkit_authorName="mazhaomeng@xin.com"
+let g:DoxygenToolkit_blockFooter="--------------------------------------------------------------------------"
+let g:DoxygenToolkit_authorName="xx@xx.com"
 let g:DoxygenToolkit_licenseTag="GPL 2.0"
-let g:DoxygenToolkit_authorName="mazhaomeng@xin.com"
+let g:DoxygenToolkit_authorName="xx@xx.com"
 let s:licenseTag = "Copyright(C)\<enter>"
 let s:licenseTag = s:licenseTag . "For free\<enter>"
 let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
@@ -175,7 +181,8 @@ let g:ctrlp_extensions = ['funky']
 
 Plugin 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
-map <c-u> :Ack<space>
+" map <c-u> :Ack<space>
+map <c-m> :Ack<space>
 
 "全文搜索
 Plugin 'dyng/ctrlsf.vim'

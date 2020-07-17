@@ -28,6 +28,9 @@ set confirm
 " tab键就会显示为 ^I ，$ 显示在行尾。这样页就能看到哪里有空格了
 " set list
 
+set wildmenu
+set wildmode=list:longest,full
+
 highlight ExtraWhitespace ctermbg=red guibg=darkgreen
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$\| \+\ze\t/
@@ -96,7 +99,7 @@ let g:NERDSpaceDelims=1
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plugin 'jiangmiao/auto-pairs'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
 let g:ycm_confirm_extra_conf=1
 " 补全功能在注释中同样有效
@@ -194,6 +197,9 @@ nnoremap <Leader>ff :CtrlSF<Space>
 " let g:ctrlsf_default_view_mode = 'compact'
 let g:ctrlsf_search_mode = 'async' " 开启异步搜索
 let g:ctrlsf_auto_preview = 1
+
+" 强化版检索式移动 https://github.com/easymotion/vim-easymotion
+Plugin 'easymotion/vim-easymotion'
 
 call vundle#end()
 filetype plugin on

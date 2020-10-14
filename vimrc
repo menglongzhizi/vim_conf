@@ -68,8 +68,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
+"let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+\ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
     \ "Renamed"   : "➜",
@@ -99,7 +100,7 @@ let g:NERDSpaceDelims=1
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plugin 'jiangmiao/auto-pairs'
 
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
 let g:ycm_confirm_extra_conf=1
 " 补全功能在注释中同样有效

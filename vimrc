@@ -202,6 +202,8 @@ let g:ctrlsf_auto_preview = 1
 " 强化版检索式移动 https://github.com/easymotion/vim-easymotion
 Plugin 'easymotion/vim-easymotion'
 
+Plugin 'fatih/vim-go'
+
 call vundle#end()
 filetype plugin on
 

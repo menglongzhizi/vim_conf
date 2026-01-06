@@ -103,64 +103,31 @@ let g:NERDSpaceDelims=1
 " 注释使用方法 <leader>cc 添加注释  <leader>cu 放开注释 <leader>c<space> 添加注释OR解开注释只能判断 <leader>cy 先复制，再注释(p可以进行粘贴)
 
 " go 主要插件
-Plugin 'fatih/vim-go'
-" go 中的代码追踪，输入 gd 就可以自动跳转
-" Plugin 'dgryski/vim-godef'"
-" go 自动导入包
-" Plugin 'go-plus/go-plus'
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+let g:go_imports_autoupdate = 1          " 自动更新 import
+let g:go_fmt_command = "goimports"       " 使用 goimports（比 gofmt 更好）
+let g:go_fmt_autosave = 1                " 保存时自动格式化 + 整理 import
+" 可选：快捷键手动整理
+au FileType go nmap <leader>i <Plug>(go-imports)
 
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plugin 'jiangmiao/auto-pairs'
 
-" Plugin 'Valloric/YouCompleteMe'
-"YCM允许自动加载.ycm_extra_conf.py不在提示
-" let g:ycm_confirm_extra_conf=1
-" 补全功能在注释中同样有效
-" let g:ycm_complete_in_comments=1
-" 开启tags补全引擎
-" let g:ycm_collect_identifiers_from_tags_files=1
-" 键入第一个字符时就开始罗列匹配
-" let g:ycm_min_num_of_chars_for_completion=1
-" YCM 相关快捷键, 分别是\gl,\gf,\gg
-" nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" 直接出发自动补全
-" let g:ycm_key_invoke_completion = '<C-z>'
-" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-" let g:ycm_semantic_triggers =  {
-"  \   'c': ['->', '.'],
-"  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"  \            're!\[.*\]\s'],
-"  \   'ocaml': ['.', '#'],
-"  \   'cpp,cuda,objcpp': ['->', '.', '::'],
-"  \   'perl': ['->'],
-"  \   'php': ['->', '::'],
-"  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
-"  \   'ruby,rust': ['.', '::'],
-"  \   'lua': ['.', ':'],
-"  \   'erlang': [':'],
-"  \ }
+" 相比 taglist，Tagbar 对现代编程语言（尤其是面向对象语言）的支持更好，且与 universal-ctags 配合更默契。
+Plugin 'preservim/tagbar'
+" 设置 F3 键快速切换 Tagbar 窗口
+nmap <F3> :TagbarToggle<CR>
+" 核心：指向 Homebrew 安装的 universal-ctags 路径
+" Apple Silicon (M1/M2/M3) 路径通常是：
+let g:tagbar_ctags_bin = '/opt/homebrew/bin/ctags'
 
-Bundle 'taglist.vim'
-" 热键设置，我设置成Leader+t来呼出和关闭Taglist
-map <F3> :TlistToggle<CR>
-" 设置窗体宽度为32，可以根据自己喜好设置
-let Tlist_WinWidth = 30
-" 如果taglist窗口是最后一个窗口，则退出vim
-let Tlist_Exit_OnlyWindow = 1
-" taglist窗口打开时，立刻切换为有焦点状态
-let Tlist_GainFocus_On_ToggleOpen = 1
-" Tag的排序规则，以名字排序。默认是以在文件中出现的顺序排序
-let Tlist_Sort_Type='name'
-" 只显示一个文件中的tag，默认为显示多个
-let Tlist_Show_One_File = 1
-" 当同时显示多个文件中的tag时，设置为1，可使taglist只显示当前文件tag，其它文件的tag都被折叠起来。
-let Tlist_File_Fold_Auto_Close = 1
-" 让taglist窗口出现在Vim的右边
-let Tlist_Use_Right_Window = 1
-" let Tlist_Ctags_Cmd="/usr/bin/ctags" "将taglist与ctags关联
-let Tlist_Ctags_Cmd="/usr/local/Cellar/ctags/5.8_1/bin/ctags"
+" 如果是 Intel Mac，路径通常是：
+" let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+
+" 常用优化设置  设置窗口宽度
+let g:tagbar_width = 30
+" 打开时自动将光标跳到 Tagbar 窗口
+let g:tagbar_autofocus = 1
 
 " 自动文档插件
 Plugin 'DoxygenToolkit.vim'
@@ -179,45 +146,62 @@ let g:DoxygenToolkit_licenseTag = s:licenseTag
 let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:doxygen_enhanced_color=1
 
-" 模糊文件搜索
+" 模糊文件名搜索
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>f :CtrlPMRU<CR>
+" 定义忽略名单
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
     \ }
+" 设置为 0 表示 CtrlP 会以 Vim 当前的工作目录为准进行搜索。
 let g:ctrlp_working_path_mode=0
+" 将搜索结果窗口固定在 Vim 的底部。
 let g:ctrlp_match_window_bottom=1
+" 设置窗口最大显示 15 行 结果。
 let g:ctrlp_max_height=15
+" 设置结果不反转。默认（1）时，最匹配的结果在最下面，光标也在最下面。设置为 0 后，最匹配的结果在最上面，光标也在最上面。这符合大多数人从上往下看的习惯
 let g:ctrlp_match_window_reversed=0
+" 设置“最近使用的文件列表”（MRU）的最大存储数量为 500 个。
 let g:ctrlp_mruf_max=500
+" 跟随符号链接（软连接）。在 PHP 或 Go 开发中，有些库或配置文件是通过软连接（ln -s）关联的。开启它，CtrlP 才能搜到这些软连接指向的真实文件
 let g:ctrlp_follow_symlinks=1
+" 如果系统中有 rg (ripgrep)，则使用它来搜索文件列表
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  " 使用 rg 后，g:ctrlp_custom_ignore 将失效，rg 会自动使用 .gitignore
+  let g:ctrlp_use_cache = 0
+endif
 
-" ctrlp 的扩展插件，可实现模糊文本函数搜索
+
+" ctrlp 的扩展插件，在当前文件中快速提取并搜索函数列表（或方法名）。
 Plugin 'tacahiroy/ctrlp-funky'
+" 弹出一个窗口，列出当前文件中所有的函数。你可以输入字符进行模糊过滤，按回车直接跳转到该函数定义处。
 nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
+" 搜索光标下的单词。如果你的光标正停留在某个函数名上，按这个键会直接在
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" 让弹出的函数列表窗口也带上语法高亮（和你的代码颜色一致），看起来更直观。
 let g:ctrlp_funky_syntax_highlight = 1
+" 告诉基础插件 CtrlP 加载这个扩展。
 let g:ctrlp_extensions = ['funky']
-
-" Plugin 'mileszs/ack.vim'
-" let g:ackprg = 'ag --nogroup --nocolor --column'
-" map <c-u> :Ack<space>
-" map <c-m> :Ack<space>
 
 "全文搜索
 Plugin 'dyng/ctrlsf.vim'
-
-let g:ctrlsf_open_left = 0 " 表示窗口在左边还是右边打开
+" 定义搜索结果列表窗口的位置。0 表示不固定在左边
+let g:ctrlsf_open_left = 0
 "但在OS X 则
 " let g:ctrlsf_position = 'right'
 nnoremap <Leader>ff :CtrlSF<Space>
+" 将其设置为 “紧凑模式” compact 正常模式 normal
 " let g:ctrlsf_default_view_mode = 'compact'
-let g:ctrlsf_search_mode = 'async' " 开启异步搜索
+" 开启异步搜索
+let g:ctrlsf_search_mode = 'async'
+" 自动预览：当你在搜索结果列表中下移动光标时，Vim 会自动在另一个小窗口显示该结果对应的文件上下文，非常方便。
 let g:ctrlsf_auto_preview = 1
+" 告诉 CtrlSF 去使用ripgrep 进行搜索
+let g:ctrlsf_backend = 'rg'
 
 " 强化版检索式移动 https://github.com/easymotion/vim-easymotion
 Plugin 'easymotion/vim-easymotion'
@@ -231,24 +215,40 @@ Plugin 'easymotion/vim-easymotion'
 
 " 代码补全
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-" tab 键盘代码补全
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" shift + tab 键代码补全
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" 主题包
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" 使用回车确认补全 (Confirm completion)
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 保存时自动格式化及整理 import
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" 安装一个庞大的 Vim 配色方案合集包
 Plugin 'flazz/vim-colorschemes'
 
-" 查看git提交内容
+" 当你按下这个快捷键时，Vim 会在屏幕底部（命令行区域）显示当前行代码的 提交人、提交时间和提交摘要
 Plugin 'zivyangll/git-blame.vim'
 " 快捷键
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 call vundle#end()
+
+" 开启 Vim 的文件类型插件支持。
 filetype plugin on
 
+" 强制告诉 Vim 使用 256 色模式渲染界面
 set t_Co=256
 
+" 确保只有在能显示颜色的环境下才开启高亮，避免在古老的黑白终端上产生乱码。
 if &t_Co > 2 || has('gui_running')
   syntax enable
   syntax on
@@ -258,10 +258,4 @@ endif
   " colorscheme iceberg
   " colorscheme lucius
 
-" 只有在是PHP文件时，才启用PHP补全
-au FileType php call AddPHPFuncList()
-function AddPHPFuncList()
-  set dictionary-=~/.vim/function_list.txt dictionary+=~/.vim/function_list.txt
-  set complete-=k complete+=k
-endfunction
 

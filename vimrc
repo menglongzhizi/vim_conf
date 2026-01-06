@@ -1,3 +1,4 @@
+set background=dark
 set nocompatible
 set backspace=2 " 设置backspace 插入模式下无法删除问题
 set number  " 显示行号
@@ -8,8 +9,16 @@ set foldlevelstart=0    " 打开文件默认不折叠
 " set foldclose=all     " 设置为自动关闭折叠
 " 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-" 折叠使用方法 zf 创建折叠 zd 删除折叠 zD 循环删除折叠 zE 去除窗口中的所有折叠 zc 折叠 zC 对所在范围内所有嵌套的折叠进行折叠 
-" zo 展开折叠 zO 对所在的范围内所有嵌套的折叠点展开 [z 到当前打开的折叠处的开始位置 ]z 到当前打开折叠处的末尾处 
+" 折叠使用方法
+" zf 创建折叠
+" zd 删除折叠
+" zD 循环删除折叠
+" zE 去除窗口中的所有折叠
+" zc 折叠
+" zC 对所在范围内所有嵌套的折叠进行折叠
+" zo 展开折叠
+" zO 对所在的范围内所有嵌套的折叠点展开 [z 到当前打开的折叠处的开始位置 ]z
+" 到当前打开折叠处的末尾处
 " zj 向下移动，到达下一个折叠的开始处 zk 向上移动，到到上一个折叠的结尾处
 
 " 突出当前行和列
@@ -21,7 +30,7 @@ set softtabstop=4   " 设置 删除 tab的宽度
 set shiftwidth=4    " 设置智能缩进的宽度
 set expandtab       " 将tab转成4个空格
 
-set textwidth=90    "设置每行的最大字符数，超过的话，将换行
+set textwidth=120    "设置每行的最大字符数，超过的话，将换行
 set colorcolumn=+2
 " 关闭未保存文件时进行提示
 set confirm
@@ -41,7 +50,7 @@ Bundle 'gmarik/vundle'
 Plugin 'VundleVim/Vundle.vim'
 
 " 按照等号对齐的插件
-Bundle 'godlygeek/tabular'
+" Bundle 'godlygeek/tabular'
 " 使用方法 :Tab /= 即可。意思按照=进行对齐
 " 可执行 :Tab /|。       意思是按照|进行对齐
 
@@ -83,6 +92,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ }
 " let g:NERDTreeShowIgnoredStatus = 1
 
+" 底部状态栏
 Plugin 'vim-airline'
 set laststatus=2
 
@@ -93,33 +103,44 @@ let g:NERDSpaceDelims=1
 " 注释使用方法 <leader>cc 添加注释  <leader>cu 放开注释 <leader>c<space> 添加注释OR解开注释只能判断 <leader>cy 先复制，再注释(p可以进行粘贴)
 
 " go 主要插件
-"Plugin 'fatih/vim-go', { 'tag': '*'  }
+Plugin 'fatih/vim-go'
 " go 中的代码追踪，输入 gd 就可以自动跳转
-"Plugin 'dgryski/vim-godef'"
+" Plugin 'dgryski/vim-godef'"
+" go 自动导入包
+" Plugin 'go-plus/go-plus'
 
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plugin 'jiangmiao/auto-pairs'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 "YCM允许自动加载.ycm_extra_conf.py不在提示
-let g:ycm_confirm_extra_conf=1
+" let g:ycm_confirm_extra_conf=1
 " 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
+" let g:ycm_complete_in_comments=1
 " 开启tags补全引擎
-let g:ycm_collect_identifiers_from_tags_files=1
+" let g:ycm_collect_identifiers_from_tags_files=1
 " 键入第一个字符时就开始罗列匹配
-let g:ycm_min_num_of_chars_for_completion=1
+" let g:ycm_min_num_of_chars_for_completion=1
 " YCM 相关快捷键, 分别是\gl,\gf,\gg
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " 直接出发自动补全
-let g:ycm_key_invoke_completion = '<C-z>'
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-let g:ycm_semantic_triggers =  {
-    \ 'c,cpp,python,java,go,erlang,perl,php': ['re!\w{2}'],
-    \ 'cs,lua,javascript': ['re!\w{2}'],
-    \ }
+" let g:ycm_key_invoke_completion = '<C-z>'
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+" let g:ycm_semantic_triggers =  {
+"  \   'c': ['->', '.'],
+"  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"  \            're!\[.*\]\s'],
+"  \   'ocaml': ['.', '#'],
+"  \   'cpp,cuda,objcpp': ['->', '.', '::'],
+"  \   'perl': ['->'],
+"  \   'php': ['->', '::'],
+"  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
+"  \   'ruby,rust': ['.', '::'],
+"  \   'lua': ['.', ':'],
+"  \   'erlang': [':'],
+"  \ }
 
 Bundle 'taglist.vim'
 " 热键设置，我设置成Leader+t来呼出和关闭Taglist
@@ -149,9 +170,8 @@ let g:DoxygenToolkit_paramTag_pre="@param "
 let g:DoxygenToolkit_returnTag="@returns   "
 let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
 let g:DoxygenToolkit_blockFooter="--------------------------------------------------------------------------"
-let g:DoxygenToolkit_authorName="xx@xx.com"
+let g:DoxygenToolkit_authorName="mazhaomeng@flashexpress.com"
 let g:DoxygenToolkit_licenseTag="GPL 2.0"
-let g:DoxygenToolkit_authorName="xx@xx.com"
 let s:licenseTag = "Copyright(C)\<enter>"
 let s:licenseTag = s:licenseTag . "For free\<enter>"
 let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
@@ -183,10 +203,10 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
 
-Plugin 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" Plugin 'mileszs/ack.vim'
+" let g:ackprg = 'ag --nogroup --nocolor --column'
 " map <c-u> :Ack<space>
-map <c-m> :Ack<space>
+" map <c-m> :Ack<space>
 
 "全文搜索
 Plugin 'dyng/ctrlsf.vim'
@@ -202,7 +222,27 @@ let g:ctrlsf_auto_preview = 1
 " 强化版检索式移动 https://github.com/easymotion/vim-easymotion
 Plugin 'easymotion/vim-easymotion'
 
-Plugin 'fatih/vim-go'
+" PHP, Python, Perl, Ruby, etc 等调试工具
+"Plugin 'vim-vdebug/vdebug'
+"let g:vdebug_options = {}
+"let g:vdebug_options['server'] = 'localhost'
+"let g:vdebug_options['port'] = 9003
+" Plugin 'puremourning/vimspector'
+
+" 代码补全
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" tab 键盘代码补全
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" shift + tab 键代码补全
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" 主题包
+Plugin 'flazz/vim-colorschemes'
+
+" 查看git提交内容
+Plugin 'zivyangll/git-blame.vim'
+" 快捷键
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 call vundle#end()
 filetype plugin on
@@ -215,6 +255,8 @@ if &t_Co > 2 || has('gui_running')
   set hlsearch
 endif
   colorscheme desert
+  " colorscheme iceberg
+  " colorscheme lucius
 
 " 只有在是PHP文件时，才启用PHP补全
 au FileType php call AddPHPFuncList()
@@ -222,3 +264,4 @@ function AddPHPFuncList()
   set dictionary-=~/.vim/function_list.txt dictionary+=~/.vim/function_list.txt
   set complete-=k complete+=k
 endfunction
+

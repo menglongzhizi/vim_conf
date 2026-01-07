@@ -232,6 +232,30 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 " 保存时自动格式化及整理 import
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" 1. 跳转到定义 (Go to Definition)
+" 鼠标光标放在函数或变量上，按下 gd 即可跳转
+nmap <silent> gd <Plug>(coc-definition)
+" 2. 跳转到类型定义 (Go to Type Definition)
+" 比如跳转到某个类或接口的声明
+nmap <silent> gy <Plug>(coc-type-definition)
+" 3. 跳转到实现 (Go to Implementation)
+" 针对接口实现或继承类的跳转
+nmap <silent> gi <Plug>(coc-implementation)
+" 4. 查看所有引用 (Go to References)
+" 按下 gr 会弹出一个列表，列出全项目所有用到该函数/变量的地方
+nmap <silent> gr <Plug>(coc-references)
+" 5. 显示文档/签名提示 (Hover)
+" 按下大写的 K，会在光标处弹出一个小浮窗，显示函数定义、注释和参数要求
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+" 6. 符号重命名 (Rename)
+" 追踪的进阶：按下 <Leader>rn 批量修改项目中所有的同名变量（Leader键默认为 \）
+nmap <leader>rn <Plug>(coc-rename)
+" 7. 错误跳转
+" 如果代码有错，按 [g 或 ]g 在错误点之间快速跳转
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+
 " 安装一个庞大的 Vim 配色方案合集包
 Plugin 'flazz/vim-colorschemes'
 
